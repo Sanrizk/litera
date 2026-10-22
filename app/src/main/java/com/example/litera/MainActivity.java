@@ -20,6 +20,7 @@ import com.example.litera.databinding.LoginLayoutBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,34 +29,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
 
-        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
-        LoginLayoutBinding bindingLogin = LoginLayoutBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.login_layout);
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main, (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-        setSupportActionBar(binding.toolbar);
-
-//        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
-//                .findFragmentById(R.id.nav_host_fragment_content_main);
-//
-//        if (navHostFragment != null) {
-//            NavController navController = navHostFragment.getNavController();
-//
-//            appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-//            NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-//        }
-
-//        binding.fab.setOnClickListener(
-//                view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAnchorView(R.id.fab)
-//                        .setAction("Action", null).show()
-//        );
+        Toast.makeText(this, "On Create...", Toast.LENGTH_SHORT).show();
     }
 
     @Override
