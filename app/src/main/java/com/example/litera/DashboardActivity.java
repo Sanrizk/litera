@@ -21,7 +21,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         boNaView = findViewById(R.id.bottom_navigation);
 
-//        getSupportFragmentManager().beginTransaction().replace(R.id.frl_dashboard, new SatuFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frl_dashboard, new ProfileFragment()).commit();
 
         boNaView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
@@ -35,8 +35,8 @@ public class DashboardActivity extends AppCompatActivity {
             } else if (itemId == R.id.nav_const) {
 //                getSupportFragmentManager().beginTransaction().replace(R.id.frl_dashboard, new ConstraintFragment()).commit();
                 return true;
-            } else if (itemId == R.id.nav_scrollview) {
-//                getSupportFragmentManager().beginTransaction().replace(R.id.frl_dashboard, new ScrollviewFragment()).commit();
+            } else if (itemId == R.id.profile) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.frl_dashboard, new ProfileFragment()).commit();
                 return true;
             } else if (itemId == R.id.nav_dashboard) {
 //                getSupportFragmentManager().beginTransaction().replace(R.id.frl_dashboard, new SatuFragment()).commit();

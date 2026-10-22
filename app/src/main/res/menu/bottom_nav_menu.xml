@@ -18,6 +18,8 @@
         android:title="Const" />
 
     <item
-        android:id="@+id/nav_scrollview"
-        android:title="Scrollview" />
+        android:id="@+id/profile"
+        android:icon="@drawable/user_solid_full"
+        android:title="Profile"
+        android:checked="true"/>
 </menu>
