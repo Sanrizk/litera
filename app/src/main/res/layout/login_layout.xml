@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="15dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:textSize="30dp"
+        android:textAlignment="center"
+        android:layout_marginTop="15dp"
+        android:textColor="#000000">
+    </TextView>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:srcCompat="@tools:sample/avatars"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:focusable="true"
+        android:tooltipText="Masukan Username Anda"
+        android:hint="Masukan Username">
+    </EditText>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:focusable="true"
+        android:tooltipText="Masukan Sandi Anda"
+        android:hint="Masukan Kata Sandi">
+    </EditText>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:textSize="20dp"
+        android:textColor="#FFFFFF"
+        android:background="#2F56C8"
+        android:layout_marginTop="10dp"
+        android:minHeight="40dp">
+    </Button>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CANCEL"
+        android:textSize="20dp"
+        android:textColor="#FFFFFF"
+        android:background="#FF0000"
+        android:layout_marginTop="10dp"
+        android:minHeight="40dp">
+    </Button>
+
+</LinearLayout>
+
