@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
@@ -39,6 +42,9 @@ public class ProfileFragment extends Fragment {
     Button btnSubmit;
     CheckBox cbScifi, cbFiction, cbScience, cbHistory;
     ToggleButton tbStatusUser;
+    Switch swStatusBaca;
+    RadioGroup rgJenisKelamin;
+    RadioButton rbJenisKelamin;
 
     TimePicker tpAlarmWaktu;
 
@@ -96,6 +102,17 @@ public class ProfileFragment extends Fragment {
         int tahun = dpAlarmHari.getYear();
         reviewText += "\n Hari Pengingat Baca : "+hari +"-"+bulan+"-"+tahun;
 
+        reviewText += "\n Status Baca : ";
+        if (swStatusBaca.isChecked()) {
+            reviewText += "Baca";
+        } else {
+            reviewText += "Belum Baca";
+        }
+
+        int idRadioGroupChecked = rgJenisKelamin.getCheckedRadioButtonId();
+        rbJenisKelamin = getView().findViewById(idRadioGroupChecked);
+        reviewText += "\n Jenis Kelamin : " + rbJenisKelamin.getText();
+
         textReview.setText(reviewText);
     }
 
@@ -113,7 +130,8 @@ public class ProfileFragment extends Fragment {
         tbStatusUser = view.findViewById(R.id.status_user);
         tpAlarmWaktu = view.findViewById(R.id.alarm_waktu);
         dpAlarmHari = view.findViewById(R.id.alarm_hari);
-
+        swStatusBaca = view.findViewById(R.id.status_baca);
+        rgJenisKelamin = view.findViewById(R.id.jenis_kelamin);
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override

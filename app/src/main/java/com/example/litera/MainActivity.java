@@ -3,96 +3,126 @@ package com.example.litera;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
-
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.litera.databinding.ActivityMainBinding;
-import com.example.litera.databinding.LoginLayoutBinding;
-
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private AppBarConfiguration appBarConfiguration;
-    TextView textIntent;
-    Intent intent;
-    Button btnIntent;
+    private EditText etUsername, etPassword;
+    private Button btnOk, btnCancel;
+    private TextView textDaftar, textLupaPassword;
+    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.login_layout);
 
-        Toast.makeText(this, "On Create...", Toast.LENGTH_SHORT).show();
+        dbHelper = new DatabaseHelper(this);
 
-        btnIntent = findViewById(R.id.dashboard);
-        btnIntent.setOnClickListener(new View.OnClickListener() {
+        // Seed default demo user if table is empty
+        if (dbHelper.getAllUsers().isEmpty()) {
+            dbHelper.insertUser(new User("Admin Litera", "admin", "admin123"));
+        }
+
+        etUsername = findViewById(R.id.etUsername);
+        etPassword = findViewById(R.id.etPassword);
+        btnOk = findViewById(R.id.dashboard);
+        btnCancel = findViewById(R.id.btnCancel);
+        textDaftar = findViewById(R.id.daftar);
+        textLupaPassword = findViewById(R.id.lupaPassword);
+
+        // Login Action
+        btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent = new Intent(MainActivity.this, DashboardActivity.class);
+                performLogin();
+            }
+        });
+
+        // Cancel Action (Clear fields)
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etUsername.setText("");
+                etPassword.setText("");
+            }
+        });
+
+        // Register Action
+        textDaftar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });
 
-
-        textIntent = findViewById(R.id.lupaPassword);
-        textIntent.setOnClickListener(new View.OnClickListener() {
+        // Forgot Password Action
+        textLupaPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent = new Intent(MainActivity.this, LupaPasswordActivity.class);
-                intent.putExtra("message", "Ini Eksplisit Intent");
+                Intent intent = new Intent(MainActivity.this, LupaPasswordActivity.class);
+                intent.putExtra("message", "Atur Ulang Kata Sandi");
                 startActivity(intent);
             }
         });
     }
 
+    private void performLogin() {
+        String username = etUsername.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+
+        if (TextUtils.isEmpty(username)) {
+            etUsername.setError("Username / Email tidak boleh kosong");
+            etUsername.requestFocus();
+            return;
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            etPassword.setError("Password tidak boleh kosong");
+            etPassword.requestFocus();
+            return;
+        }
+
+        boolean isValid = dbHelper.checkUser(username, password);
+
+        if (isValid) {
+            User user = dbHelper.getUserByLogin(username, password);
+            String displayName = (user != null && user.getName() != null) ? user.getName() : username;
+
+            Toast.makeText(this, "Login Berhasil! Selamat datang, " + displayName, Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+            intent.putExtra("USER_NAME", displayName);
+            intent.putExtra("USER_EMAIL", user != null ? user.getEmail() : username);
+            startActivity(intent);
+            finish();
+        } else {
+            Toast.makeText(this, "Username/Email atau Password salah!", Toast.LENGTH_LONG).show();
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.nav_host_fragment_content_main);
-        boolean handled = false;
-        if (navHostFragment != null) {
-            NavController navController = navHostFragment.getNavController();
-            handled = NavigationUI.navigateUp(navController, appBarConfiguration);
-        }
-        return handled || super.onSupportNavigateUp();
     }
 }
