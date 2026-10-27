@@ -8,9 +8,9 @@
 
 Saksikan demonstrasi penggunaan aplikasi **Litera** melalui tautan YouTube berikut:
 
-[![Video Demo Litera](https://img.youtube.com/vi/56hc1zMffF0/maxresdefault.jpg)](https://youtu.be/56hc1zMffF0)
+[![Video Demo Litera](https://img.youtube.com/vi/A39Hu_FoTk8/maxresdefault.jpg)](https://youtu.be/A39Hu_FoTk8)
 
-👉 **[Klik di sini untuk menonton Video Demo Litera di YouTube](https://youtu.be/56hc1zMffF0)**
+👉 **[Klik di sini untuk menonton Video Demo Litera di YouTube](https://youtu.be/A39Hu_FoTk8)**
 
 ---
 
